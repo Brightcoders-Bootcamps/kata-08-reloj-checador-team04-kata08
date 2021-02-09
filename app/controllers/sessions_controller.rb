@@ -5,7 +5,8 @@ class SessionsController < ApplicationController
 
     if @employeer
       puts 'si!!!!!!!!!!!!!!!!'
-      puts "Welcome #{@employeer.name}"
+      @employeer = Check.create(privatenumber: @employeer.privatenumber, type_move: "check_in")
+      #puts "Welcome #{@employeer.name}"
     else
       message = "Something went wrong, Make sure your private number is correct"
       #redirect_to 'session_path', notice: message
