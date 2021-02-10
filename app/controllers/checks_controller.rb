@@ -7,7 +7,7 @@ class ChecksController < InheritedResources::Base
   end
 
   def generate_report(date)
-    check_days(get_month(date))
+    check_days(get_month_days(date))
   end
 
   def generate_report_by_user(private_number)
@@ -19,7 +19,7 @@ class ChecksController < InheritedResources::Base
   end
 
   def check_days(num, days, date)
-    days = get_month(date)
+    days = get_month_days(date)
     array = []
 
     (1..days).each  do |i|
@@ -27,7 +27,7 @@ class ChecksController < InheritedResources::Base
     end
   end
 
-  def get_month(date)
+  def get_month_days(date)
     month = date[5..6]
     if month == '02'
       return 28
