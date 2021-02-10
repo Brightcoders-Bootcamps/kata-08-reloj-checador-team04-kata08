@@ -1,5 +1,11 @@
 <h1>Check-In</h1>
 
+<% if flash[:notice] %> 
+  <div id="notice"><%= flash[:notice] %></div>
+<% elsif flash[:alert] %>
+  <div id="alert"><%= flash[:alert] %></div>
+<% end %>
+
 <p>Please, enter you private number</p>
 <%= form_with(model: @employer, local:true) do |form| %>
   <div class="field">

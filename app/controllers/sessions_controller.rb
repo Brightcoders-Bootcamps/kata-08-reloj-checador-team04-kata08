@@ -1,16 +1,22 @@
 class SessionsController < ApplicationController
-  
+
+  @@count_check = 0
+
   def create
     @employeer = Employer.find_by(privatenumber: params[:privatenumber])
 
-    if @employeer
-      puts 'si!!!!!!!!!!!!!!!!'
+    if @employeer && @@count_check == 0
       @employeer = Check.create(privatenumber: @employeer.privatenumber, type_move: "check_in")
-      #puts "Welcome #{@employeer.name}"
+      redirect_to sessions_login_path, :notice => "Exito"
+      @@count_check += 1
+    elsif @employeer && @@count_check == 1
+      @employeer = Check.create(privatenumber: @employeer.privatenumber, type_move: "check_out")
+      redirect_to sessions_login_path, :notice => "Exito"
+      @@count_check += 1
+    elsif @employeer && @@count_check > 1
+      redirect_to sessions_login_path, :alert => "Ya duermete bro"
     else
-      message = "Something went wrong, Make sure your private number is correct"
-      #redirect_to 'session_path', notice: message
-     puts 'noooooooooooooooo!!!!!!'
+      redirect_to sessions_login_path, :alert => "Fracaso total"
     end
 
   end
