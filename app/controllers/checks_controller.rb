@@ -6,6 +6,27 @@ class ChecksController < InheritedResources::Base
     params.require(:check).permit(:privatenumber, :type_move)
   end
 
+  def generate_report(date)
+    check_days(get_month(date))
+  end
+
+  def generate_report_by_user(private_number)
+    numbers = get_employees
+
+    numbers.each do |num|
+      check_days()
+    end
+  end
+
+  def check_days(num, days, date)
+    days = get_month(date)
+    array = []
+
+    (1..days).each  do |i|
+      array[i] << 'Absence'
+    end
+  end
+
   def get_month(date)
     month = date[5..6]
     if month == '02'
@@ -17,17 +38,7 @@ class ChecksController < InheritedResources::Base
     end
     
   end
-
-  def check_days(days)
-    (1..days).each  do |i|
-      puts "dia: #{i}"
-    end
-  end
-
-  def generate_report_by_user(private_number)
-
-  end
-
+  
   def get_employees()
     query = Employer.all
     numbers = []
@@ -36,6 +47,8 @@ class ChecksController < InheritedResources::Base
     query.each do |number|
       numbers << number[:privatenumber]
     end
+
+    return numbers
   end
 
   def to_json_def(query)
