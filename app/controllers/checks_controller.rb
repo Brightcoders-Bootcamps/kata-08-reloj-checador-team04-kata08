@@ -6,29 +6,25 @@ class ChecksController < InheritedResources::Base
     params.require(:check).permit(:privatenumber, :type_move)
   end
 
-  def generate_report(date)
-    check_days(get_month_days(date))
-  end
+  def generate_report_by_user(month)
 
-  def generate_report_by_user(private_number)
-    numbers = get_employees
+    days = get_month_days(month)
+    employeers = get_employees
+    check_days()
 
-    numbers.each do |num|
-      check_days()
+    employeers.each do |num_employeer|
+      check_attendace(num_employeer, month)
     end
   end
 
-  def check_days(num, days, date)
-    days = get_month_days(date)
-    array = []
+  def check_attendace(privatenumber, month)
+    
+    attendace = Check.where("privatenumber = #{privatenumber}", "created_at LIKE -02-", "type_move = check_in")
+    attendace = Check.where("privatenumber = 312312", "created_at LIKE -02-", "type_move LIKE check_in")
 
-    (1..days).each  do |i|
-      array[i] << 'Absence'
-    end
   end
 
-  def get_month_days(date)
-    month = date[5..6]
+  def get_month_days(month)
     if month == '02'
       return 28
     elsif month == '04' || month == '06' || month == '09' || month == '11'
