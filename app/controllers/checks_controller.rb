@@ -10,24 +10,23 @@ class ChecksController < InheritedResources::Base
 
     days = get_month_days(month)
     employeers = get_employees
-    check_days()
 
-    employeers.each do |num_employeer|
-      check_attendace(num_employeer, month)
+    employeers.each do |private_number|
+      asis = check_attendance(private_number, month)
+      puts "Employeer: #{private_number}, attendance: #{asis}, absences: #{days-asis}"
     end
   end
 
-  def check_attendace(privatenumber, month)
-    
-    attendace = Check.where("privatenumber = #{privatenumber}", "created_at LIKE -02-", "type_move = check_in")
-    attendace = Check.where("privatenumber = 312312", "created_at LIKE -02-", "type_move LIKE check_in")
-
+  def check_attendance(privatenumber, month)
+    attendance = Check.where("privatenumber = #{privatenumber} AND type_move = 'check_in' AND extract(MONTH from created_at) = #{month}")
+    #attendance = Check.where("privatenumber = 312312 AND type_move = 'check_in' AND extract(MONTH from created_at) = '2'")
+    return attendance.length
   end
 
   def get_month_days(month)
-    if month == '02'
+    if month == "2"
       return 28
-    elsif month == '04' || month == '06' || month == '09' || month == '11'
+    elsif month == "4" || month == "6" || month == "9" || month == "11"
       return 30
     else
       return 31
