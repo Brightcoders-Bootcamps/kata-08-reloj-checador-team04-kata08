@@ -50,6 +50,38 @@ class ChecksController < InheritedResources::Base
     query.map{|s| {status: s[0], hits: s[1].to_i, page_views: s[2].to_i} }
     puts query.to_json
   end
+
+  def get_average
+    check_ins =  get_check_ins
+    total_hours = get_total_hours(check_ins)
+    average = calculate_average(total_hours, check_ins.length)
+  end
+
+  def get_total_hours(check_ins)
+    sum = 0
+    check_ins.each do |f2|
+      sum += f2.strftime("%k.%M").to_f
+    end
+    return sum
+
+  end
+
+  def get_check_ins
+    fechas = []
+    check_ins = Check.where("type_move = 'check_in'")
+    check_ins.each do |h|
+      fechas << h[:created_at]
+    end
+    return fechas
+  end
+
+  def calculate_average(total, num_elements)
+    avg = total/num_elements
+    avg1 = avg.to_s
+    avg1["."] = ":"
+    return avg1[0..4]
+  end
+
 end
 
 
