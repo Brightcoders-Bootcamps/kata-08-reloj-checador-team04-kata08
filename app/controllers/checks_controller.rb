@@ -51,8 +51,8 @@ class ChecksController < InheritedResources::Base
     puts query.to_json
   end
 
-  def get_average
-    check_ins =  get_check_ins
+  def get_average(type_move)
+    check_ins =  get_check(type_move)
     total_hours = get_total_hours(check_ins)
     average = calculate_average(total_hours, check_ins.length)
   end
@@ -66,9 +66,9 @@ class ChecksController < InheritedResources::Base
 
   end
 
-  def get_check_ins
+  def get_check(type_move)
     fechas = []
-    check_ins = Check.where("type_move = 'check_in'")
+    check_ins = Check.where("type_move = '#{type_move}'")
     check_ins.each do |h|
       fechas << h[:created_at]
     end
