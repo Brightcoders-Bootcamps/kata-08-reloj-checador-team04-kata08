@@ -1,5 +1,6 @@
-class ChecksController < InheritedResources::Base
+# frozen_string_literal: true
 
+class ChecksController < InheritedResources::Base
   private
 
   def check_params
@@ -7,34 +8,33 @@ class ChecksController < InheritedResources::Base
   end
 
   def generate_report_by_user(month)
-
     days = get_month_days(month)
     employeers = get_employees
 
     employeers.each do |private_number|
       asis = check_attendance(private_number, month)
-      puts "Employeer: #{private_number}, attendance: #{asis}, absences: #{days-asis}"
+      puts "Employeer: #{private_number}, attendance: #{asis}, absences: #{days - asis}"
     end
   end
 
   def check_attendance(privatenumber, month)
     attendance = Check.where("privatenumber = #{privatenumber} AND type_move = 'check_in' AND extract(MONTH from created_at) = #{month}")
-    #attendance = Check.where("privatenumber = 312312 AND type_move = 'check_in' AND extract(MONTH from created_at) = '2'")
-    return attendance.length
+    # attendance = Check.where("privatenumber = 312312 AND type_move = 'check_in' AND extract(MONTH from created_at) = '2'")
+    attendance.length
   end
 
   def get_month_days(month)
-    if month == "2"
-      return 28
-    elsif month == "4" || month == "6" || month == "9" || month == "11"
-      return 30
+    case month
+    when '2'
+      28
+    when '4', '6', '9', '11'
+      30
     else
-      return 31
+      31
     end
-    
   end
-  
-  def get_employees()
+
+  def get_employees
     query = Employer.all
     numbers = []
     to_json_def(query)
@@ -43,16 +43,16 @@ class ChecksController < InheritedResources::Base
       numbers << number[:privatenumber]
     end
 
-    return numbers
+    numbers
   end
 
   def to_json_def(query)
-    query.map{|s| {status: s[0], hits: s[1].to_i, page_views: s[2].to_i} }
+    query.map { |s| { status: s[0], hits: s[1].to_i, page_views: s[2].to_i } }
     puts query.to_json
   end
 
   def get_average
-    check_ins =  get_check_ins
+    check_ins = get_check_ins
     total_hours = get_total_hours(check_ins)
     average = calculate_average(total_hours, check_ins.length)
   end
@@ -60,10 +60,9 @@ class ChecksController < InheritedResources::Base
   def get_total_hours(check_ins)
     sum = 0
     check_ins.each do |f2|
-      sum += f2.strftime("%k.%M").to_f
+      sum += f2.strftime('%k.%M').to_f
     end
-    return sum
-
+    sum
   end
 
   def get_check_ins
@@ -72,17 +71,13 @@ class ChecksController < InheritedResources::Base
     check_ins.each do |h|
       fechas << h[:created_at]
     end
-    return fechas
+    fechas
   end
 
   def calculate_average(total, num_elements)
-    avg = total/num_elements
+    avg = total / num_elements
     avg1 = avg.to_s
-    avg1["."] = ":"
-    return avg1[0..4]
+    avg1['.'] = ':'
+    avg1[0..4]
   end
-
 end
-
-
-

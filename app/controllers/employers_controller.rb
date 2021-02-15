@@ -1,5 +1,6 @@
-class EmployersController < InheritedResources::Base
+# frozen_string_literal: true
 
+class EmployersController < InheritedResources::Base
   def new
     @user = User.new
   end
@@ -15,13 +16,12 @@ class EmployersController < InheritedResources::Base
   end
 
   def show
-    @user = User.find(params[:id]) 
+    @user = User.find(params[:id])
   end
 
   private
 
-    def employer_params
-      params.require(:employer).permit(:email, :name, :position, :privatenumber)
-    end
-
+  def employer_params
+    params.require(:employer).permit(:email, :name, :position, :privatenumber)
+  end
 end

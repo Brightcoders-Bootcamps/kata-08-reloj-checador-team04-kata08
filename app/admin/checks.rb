@@ -1,9 +1,10 @@
-ActiveAdmin.register Check do
+# frozen_string_literal: true
 
-  menu label: "Reports"
+ActiveAdmin.register Check do
+  menu label: 'Reports'
+  index title: 'Reports'
 
   filter :privatenumber
   filter :type_move
   filter :created_at
-
 end
