@@ -6,6 +6,8 @@ ruby '2.7.2'
 # Basic setup for check clock project
 gem 'activeadmin'
 gem 'devise'
+gem 'bootstrap', '~> 5.0.0.beta1'
+gem 'bootstrap_form', '~> 4.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'

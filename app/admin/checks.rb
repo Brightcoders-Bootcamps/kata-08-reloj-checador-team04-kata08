@@ -6,6 +6,4 @@ ActiveAdmin.register Check do
   filter :type_move
   filter :created_at
 
-  #index download_links: [:pdf]
-
 end

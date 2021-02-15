@@ -1,3 +1,51 @@
 // Place all the styles related to the Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+$color-back: #f1faee;
+$white-color: #ffffff;
+
+body{background: $color-back}
+
+.logo {
+    margin-left: 550px;
+    margin-top: 30px
+}
+
+.title {
+    margin-left: 540px;
+    margin-top: 30px;
+}
+
+.field {
+    margin-left: 500px;
+    width: 20%;
+    margin-top: 3%;
+}
+
+.text-field {
+    margin-left: 500px;
+    margin-top: 5%;
+}
+
+.btn {
+    margin-left: 500px;
+    width: 10%;
+}
+
+#notice-wrapper {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: rgba(135, 216, 211, 0.85);
+    .alert, .notice {
+        padding: 2.5rem 0;
+        text-align: center;
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $white-color;
+        letter-spacing: 1px;
+    }
+}
