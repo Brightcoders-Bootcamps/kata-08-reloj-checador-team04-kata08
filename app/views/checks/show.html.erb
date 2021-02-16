@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Private number:</strong>
+  <%= @check.privatenumber %>
+</p>
+
+<p>
+  <strong>Type move:</strong>
+  <%= @check.type_move %>
+</p>
+
+<%= link_to 'Edit', edit_check_path(@check) %> |
+<%= link_to 'Back', checks_path %>
