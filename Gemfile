@@ -5,6 +5,7 @@ ruby '2.7.2'
 
 # Basic setup for check clock project
 gem 'activeadmin'
+gem 'active_admin_flat_skin'
 gem 'devise'
 gem 'bootstrap', '~> 5.0.0.beta1'
 gem 'bootstrap_form', '~> 4.0'
