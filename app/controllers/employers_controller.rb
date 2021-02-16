@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EmployersController < InheritedResources::Base
 
   def new
