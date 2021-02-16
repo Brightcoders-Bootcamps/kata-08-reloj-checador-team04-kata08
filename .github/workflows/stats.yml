@@ -1,0 +1,16 @@
+name: Pull Request Stats
+
+on: pull_request
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run pull request stats
+        uses: flowwer-dev/pull-request-stats@v1
+        with:
+          token: ${{ secrets.PR_STATS_TOKEN}}
+          repositories: 'Brightcoders-Bootcamps/kata-08-reloj-checador-team01-kata08,Brightcoders-Bootcamps/kata-08-reloj-checador-team03-kata08,Brightcoders-Bootcamps/kata-08-reloj-checador-team04-kata08,Brightcoders-Bootcamps/kata-08-reloj-checador-team05-kata8'
+          period: 30
+          charts: true
+          sort-by: 'COMMENTS'
