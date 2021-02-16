@@ -1,15 +1,9 @@
 class ChecksController < InheritedResources::Base
 
-  private
-
-  def check_params
-    params.require(:check).permit(:privatenumber, :type_move)
-  end
-
   def generate_report_by_user(month)
 
     days = get_month_days(month)
-    employeers = get_employees
+    employeers = get_employeers
 
     employeers.each do |private_number|
       asis = check_attendance(private_number, month)
@@ -34,7 +28,7 @@ class ChecksController < InheritedResources::Base
     
   end
   
-  def get_employees()
+  def get_employeers()
     query = Employer.all
     numbers = []
     to_json_def(query)
@@ -80,6 +74,12 @@ class ChecksController < InheritedResources::Base
     avg1 = avg.to_s
     avg1["."] = ":"
     return avg1[0..4]
+  end
+  
+  private
+
+  def check_params
+    params.require(:check).permit(:privatenumber, :type_move)
   end
 
 end
