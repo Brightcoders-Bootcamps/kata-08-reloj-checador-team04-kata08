@@ -4,12 +4,14 @@
 
 $color-back: #f1faee;
 $white-color: #ffffff;
+$notice-back: rgba(50, 148, 79, 0.70);
+$alert-back: rgba(212, 18, 18, 0.85);
 
 body{background: $color-back}
 
 .logo {
     margin-left: 550px;
-    margin-top: 30px
+    margin-top: 110px
 }
 
 .title {
@@ -38,8 +40,7 @@ body{background: $color-back}
     top: 0;
     width: 100%;
     z-index: 999;
-    background: rgba(135, 216, 211, 0.85);
-    .alert, .notice {
+    .notice {
         padding: 2.5rem 0;
         text-align: center;
         margin: 0;
@@ -47,5 +48,26 @@ body{background: $color-back}
         font-weight: 700;
         color: $white-color;
         letter-spacing: 1px;
+        background: $notice-back;
+    }
+    .alert {
+        padding: 2.5rem 0;
+        text-align: center;
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $white-color;
+        letter-spacing: 1px;
+        background: $alert-back;
+    }
+    .info {
+        padding: 2.5rem 0;
+        text-align: center;
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $white-color;
+        letter-spacing: 1px;
+        background: #277da1;
     }
 }

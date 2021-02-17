@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       redirect_to sessions_login_path, notice: 'Check out successfully!'
       @@count_check += 1
     elsif @employeer && @@count_check > 1
-      redirect_to sessions_login_path, alert: 'Checks completed for today.'
+      redirect_to sessions_login_path, info: 'Checks completed for today.'
     else
       redirect_to sessions_login_path, alert: 'Invalid private number.'
     end

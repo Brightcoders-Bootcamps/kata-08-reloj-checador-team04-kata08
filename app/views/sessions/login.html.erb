@@ -3,9 +3,15 @@
 </div>
 <h1 class="title">Welcome</h1>
 
+<%= javascript_pack_tag 'sessions' %>
+
 <% if flash[:notice] %>
   <div id="notice-wrapper">
     <div class="notice" id="notice"><%= flash[:notice] %></div>
+  </div>
+<% elsif flash[:info] %>
+  <div id="notice-wrapper">
+    <div class="info" id="info"><%= flash[:info] %></div>
   </div>
 <% elsif flash[:alert] %>
   <div id="notice-wrapper">
@@ -23,3 +29,4 @@
   <input class="btn btn-success btn-lg" <%= form.submit "Check" %>
 
 <% end %>
+
