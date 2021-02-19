@@ -1,7 +1,6 @@
 class ChecksController < InheritedResources::Base
 
   def generate_report_by_user(month)
-
     days = get_month_days(month)
     employeers = get_employeers
 
@@ -9,6 +8,12 @@ class ChecksController < InheritedResources::Base
       asis = check_attendance(private_number, month)
       puts "Employeer: #{private_number}, attendance: #{asis}, absences: #{days-asis}"
     end
+  end
+
+  def get_average(type_move)
+    checks =  get_check(type_move)
+    total_hours = get_total_hours(checks)
+    average = calculate_average(total_hours, check_ins.length)
   end
 
   def check_attendance(privatenumber, month)
@@ -43,12 +48,6 @@ class ChecksController < InheritedResources::Base
   def to_json_def(query)
     query.map{|s| {status: s[0], hits: s[1].to_i, page_views: s[2].to_i} }
     puts query.to_json
-  end
-
-  def get_average(type_move)
-    check_ins =  get_check(type_move)
-    total_hours = get_total_hours(check_ins)
-    average = calculate_average(total_hours, check_ins.length)
   end
 
   def get_total_hours(check_ins)
