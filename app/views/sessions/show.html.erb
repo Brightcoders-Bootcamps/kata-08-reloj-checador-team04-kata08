@@ -1,0 +1,12 @@
+<table class="table">
+  <tr>
+    <th>Private_number</th>
+    <th>Absence</th>
+  </tr>
+  <% ChecksController.new.generate_report_by_user("2").each do |emp| %>
+  <tr>
+    <td><%= emp[:private_number] %></td>
+    <td><%= emp[:absence] %></td>
+  </tr>
+  <% end %>
+</table>

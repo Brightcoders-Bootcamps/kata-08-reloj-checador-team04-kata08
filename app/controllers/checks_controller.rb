@@ -1,20 +1,23 @@
 # frozen_string_literal: true
 
 class ChecksController < InheritedResources::Base
-  private
+  #private
 
   def check_params
     params.require(:check).permit(:privatenumber, :type_move)
   end
 
   def generate_report_by_user(month)
+    absences = []
     days = get_month_days(month)
     employeers = get_employees
 
     employeers.each do |private_number|
       asis = check_attendance(private_number, month)
-      puts "Employeer: #{private_number}, attendance: #{asis}, absences: #{days - asis}"
+      #puts "Employeer: #{private_number}, attendance: #{asis}, absences: #{days - asis}"
+      absences << {private_number: "#{private_number}", absence: "#{days-asis}"}
     end
+    return absences
   end
 
   def check_attendance(privatenumber, month)
