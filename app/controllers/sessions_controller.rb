@@ -53,8 +53,13 @@ class SessionsController < ApplicationController
   end
 
   def show
-    #@users = Employer.all
-    #@absences
+    @month = params[:month] == nil ? Time.now.month : params[:month]
+    @absence = ChecksController.new.generate_report_by_user(@month)  
+  end
+
+  def months    
+    @absence = ChecksController.new.generate_report_by_user(@month) 
+    redirect_to :show  
   end
 
 end

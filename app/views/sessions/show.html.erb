@@ -1,12 +1,14 @@
 <table class="table">
   <tr>
-    <th>Private_number</th>
-    <th>Absence</th>
-  </tr>
-  <% ChecksController.new.generate_report_by_user("2").each do |emp| %>
+    <%= form_tag("/sessions/show", method: "post") do |f| %>
+      <select name="month"> <%= options_for_select(["1", "2","3","4","5","6","7","8","9","10","11","12"], @month) %></select>
+      <%= submit_tag("Search") %>
+    <% end %>
+  <th>Private_number</th>
+  <th>Absence</th>  </tr>
+    <% @absence.each do |emp| %>
   <tr>
     <td><%= emp[:private_number] %></td>
     <td><%= emp[:absence] %></td>
   </tr>
   <% end %>
-</table>

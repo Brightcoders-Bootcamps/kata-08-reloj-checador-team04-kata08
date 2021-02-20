@@ -13,4 +13,7 @@ Rails.application.routes.draw do
 
   get 'sessions/show'
   
+  post 'sessions/show' => 'sessions#show'
+
+  
 end

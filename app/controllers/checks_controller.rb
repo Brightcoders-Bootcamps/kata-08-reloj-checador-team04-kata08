@@ -21,16 +21,15 @@ class ChecksController < InheritedResources::Base
   end
 
   def check_attendance(privatenumber, month)
-    attendance = Check.where("privatenumber = #{privatenumber} AND type_move = 'check_in' AND extract(MONTH from created_at) = #{month}")
-    # attendance = Check.where("privatenumber = 312312 AND type_move = 'check_in' AND extract(MONTH from created_at) = '2'")
+    attendance = Check.where("privatenumber = #{privatenumber} AND type_move = 'check_in' AND extract(MONTH from created_at) = '2'")
     attendance.length
   end
 
   def get_month_days(month)
     case month
-    when '2'
+    when "2"
       28
-    when '4', '6', '9', '11'
+    when "4", "6", "9", "11"
       30
     else
       31
