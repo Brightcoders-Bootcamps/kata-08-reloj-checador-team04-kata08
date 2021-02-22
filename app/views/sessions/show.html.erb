@@ -1,14 +1,26 @@
+<div class="background-absence">
+<div class="wrapper">
 <table class="table">
-  <tr>
-    <%= form_tag("/sessions/show", method: "post") do |f| %>
-      <select name="month"> <%= options_for_select(["1", "2","3","4","5","6","7","8","9","10","11","12"], @month) %></select>
-      <%= submit_tag("Search") %>
-    <% end %>
-  <th>Private_number</th>
-  <th>Absence</th>  </tr>
+  <tr class="header">
+  <th>Private number</th>
+  <th>Absence</th>  
+  </tr>
     <% @absence.each do |emp| %>
-  <tr>
+  <tr class="cell">
     <td><%= emp[:private_number] %></td>
     <td><%= emp[:absence] %></td>
   </tr>
   <% end %>
+  </table>
+  </div>
+
+  <div class="container">
+    <p>Select a month:</p>
+    <%= form_tag("/sessions/show", method: "post") do |f| %>
+      <div class="select">
+      <select class="slc-admi" name="month"> <%= options_for_select(["1", "2","3","4","5","6","7","8","9","10","11","12"], @month) %></select>
+      </div>
+      <%= submit_tag "Search", :class => "btn-1 btn-danger btn-lg" %>
+    <% end %>
+  </div>
+</div>

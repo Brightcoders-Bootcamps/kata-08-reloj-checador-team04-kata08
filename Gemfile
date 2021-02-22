@@ -9,6 +9,7 @@ gem 'active_admin_flat_skin'
 gem 'devise'
 gem 'bootstrap', '~> 5.0.0.beta1'
 gem 'bootstrap_form', '~> 4.0'
+gem 'bootstrap-select-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
