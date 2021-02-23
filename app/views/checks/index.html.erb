@@ -8,7 +8,7 @@
       <th>Privatenumber</th>
       <th>Average check-in</th>
       <th>Average check-out</th>
-      <%= form_tag("/checks/index", method: "post") do |f| %>
+      <%= form_tag("/checks", method: "post") do |f| %>
         <select name="month_average"> <%= options_for_select(["1", "2","3","4","5","6","7","8","9","10","11","12"], @month_average) %></select>
         <%= submit_tag("Search") %>
       <% end %>

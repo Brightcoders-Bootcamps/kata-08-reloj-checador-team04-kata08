@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  resources :checks
+  resources :checks , only:[ :index ]
   resources :companies
   resources :employers
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -14,6 +14,6 @@ Rails.application.routes.draw do
   get 'sessions/show'
 
   post 'sessions/show' => 'sessions#show'
-  post 'checks/index' => 'checks#index'
+  post 'checks' => 'checks#index'
   
 end
