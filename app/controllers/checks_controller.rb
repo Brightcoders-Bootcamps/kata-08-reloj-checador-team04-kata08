@@ -21,7 +21,7 @@ class ChecksController < InheritedResources::Base
   end
 
   def check_attendance(privatenumber, month)
-    attendance = Check.where("privatenumber = #{privatenumber} AND type_move = 'check_in' AND extract(MONTH from created_at) = '2'")
+    attendance = Check.where("privatenumber = #{privatenumber} AND type_move = 'check_in' AND extract(MONTH from created_at) = #{month}")
     attendance.length
   end
 
@@ -53,33 +53,73 @@ class ChecksController < InheritedResources::Base
     puts query.to_json
   end
 
-  def get_average
-    check_ins = get_check_ins
-    total_hours = get_total_hours(check_ins)
-    average = calculate_average(total_hours, check_ins.length)
+  def generate_average_report(month)
+    employers = get_employees
+    report_average = []
+
+    employers.each do |employeer|
+      report_average << { private_number: employeer, 
+        average_check_in: get_average(employeer, 'check_in', month),
+        average_chek_out: get_average(employeer, 'check_out', month) }
+    end
+
+    return report_average
   end
 
-  def get_total_hours(check_ins)
+  def get_average(private_number, type_move, month)
+    checks = get_checks(private_number, type_move, month)
+    total_hours = get_total_hours(checks)
+    puts "#######################################"
+    puts checks.length
+    puts total_hours
+    puts "#######################################"
+    average = calculate_average(total_hours, checks.length)
+  end
+
+  def get_total_hours(checks)
     sum = 0
-    check_ins.each do |f2|
+    checks.each do |f2|
       sum += f2.strftime('%k.%M').to_f
     end
-    sum
+    puts
+    return sum
+
   end
 
-  def get_check_ins
-    fechas = []
-    check_ins = Check.where("type_move = 'check_in'")
-    check_ins.each do |h|
-      fechas << h[:created_at]
+  def get_checks(private_number, type_move, month)
+    horas = []
+    checks = Check.where("privatenumber = #{private_number} AND type_move = '#{type_move}' AND extract(MONTH from created_at) = #{month}")
+    #Check.where("privatenumber = 312312 AND type_move = 'check_in' AND extract(MONTH from created_at) = 2")
+    checks.each do |h|
+      horas << h[:created_at]
     end
-    fechas
+
+
+    return horas
   end
 
   def calculate_average(total, num_elements)
-    avg = total / num_elements
-    avg1 = avg.to_s
-    avg1['.'] = ':'
-    avg1[0..4]
+
+    if(total == 0 || num_elements == 0)
+      return "No hay cheks aún"
+    else
+      avg = total / num_elements
+      avg1 = avg.to_s
+      avg1['.'] = ':'
+      return avg1[0..4]
+
+    end
+    
+  end
+
+  def index
+    @month_average = params[:month_average] == nil ? Time.now.month : params[:month_average]
+    @average = generate_average_report(@month_average)  
+
+  end
+
+  def month_average 
+    @average = generate_average_report(@month_average) 
+    redirect_to :index 
   end
 end

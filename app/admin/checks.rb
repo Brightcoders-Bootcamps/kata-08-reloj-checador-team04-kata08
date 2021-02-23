@@ -27,4 +27,6 @@ ActiveAdmin.register Check do
   filter :type_move
   filter :created_at
 
+    
+
 end
