@@ -53,6 +53,7 @@ class ChecksController < InheritedResources::Base
     puts query.to_json
   end
 
+
   def generate_average_report(month)
     employers = get_employees
     report_average = []
@@ -82,6 +83,7 @@ class ChecksController < InheritedResources::Base
 
   end
 
+
   def get_checks(private_number, type_move, month)
     horas = []
     checks = Check.where("privatenumber = #{private_number} AND type_move = '#{type_move}' AND extract(MONTH from created_at) = #{month}")
@@ -89,7 +91,6 @@ class ChecksController < InheritedResources::Base
     checks.each do |h|
       horas << h[:created_at]
     end
-
 
     return horas
   end

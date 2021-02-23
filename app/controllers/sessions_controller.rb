@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-
   def create
 
     if employeer_exist?
@@ -61,5 +60,4 @@ class SessionsController < ApplicationController
     @absence = ChecksController.new.generate_report_by_user(@month) 
     redirect_to :show  
   end
-
 end
