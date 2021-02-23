@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
   end 
 
   def employeer_exist?
-    @employeer = Employer.find_by(privatenumber: params[:privatenumber])
+    @employeer = Employer.find_by(privatenumber: params[:private_number])
     @employeer ? true : false
   end
 

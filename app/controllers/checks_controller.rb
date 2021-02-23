@@ -60,7 +60,7 @@ class ChecksController < InheritedResources::Base
     employers.each do |employeer|
       report_average << { private_number: employeer, 
         average_check_in: get_average(employeer, 'check_in', month),
-        average_chek_out: get_average(employeer, 'check_out', month) }
+        average_check_out: get_average(employeer, 'check_out', month) }
     end
 
     return report_average
@@ -69,10 +69,6 @@ class ChecksController < InheritedResources::Base
   def get_average(private_number, type_move, month)
     checks = get_checks(private_number, type_move, month)
     total_hours = get_total_hours(checks)
-    puts "#######################################"
-    puts checks.length
-    puts total_hours
-    puts "#######################################"
     average = calculate_average(total_hours, checks.length)
   end
 
@@ -101,7 +97,7 @@ class ChecksController < InheritedResources::Base
   def calculate_average(total, num_elements)
 
     if(total == 0 || num_elements == 0)
-      return "No hay cheks aún"
+      return "There's not checks yet."
     else
       avg = total / num_elements
       avg1 = avg.to_s
