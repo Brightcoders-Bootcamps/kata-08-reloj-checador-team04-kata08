@@ -1,5 +1,6 @@
-class SessionsController < ApplicationController
+# frozen_string_literal: true
 
+class SessionsController < ApplicationController
   def create
 
     if employeer_exist?
@@ -14,7 +15,7 @@ class SessionsController < ApplicationController
   end 
 
   def employeer_exist?
-    @employeer = Employer.find_by(privatenumber: params[:privatenumber])
+    @employeer = Employer.find_by(privatenumber: params[:private_number])
     @employeer ? true : false
   end
 
@@ -48,5 +49,15 @@ class SessionsController < ApplicationController
 
   def enough_for_today
     redirect_to sessions_login_path, :alert => "Checks for today completed"
+  end
+
+  def show
+    @month = params[:month] == nil ? Time.now.month : params[:month]
+    @absence = ChecksController.new.generate_report_by_user(@month)  
+  end
+
+  def months    
+    @absence = ChecksController.new.generate_report_by_user(@month) 
+    redirect_to :show  
   end
 end

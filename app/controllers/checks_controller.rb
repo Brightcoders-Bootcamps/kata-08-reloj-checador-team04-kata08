@@ -1,40 +1,42 @@
-class ChecksController < InheritedResources::Base
+# frozen_string_literal: true
 
-  private
+class ChecksController < InheritedResources::Base
+  #private
 
   def check_params
     params.require(:check).permit(:privatenumber, :type_move)
   end
 
   def generate_report_by_user(month)
-
+    absences = []
     days = get_month_days(month)
     employeers = get_employees
 
     employeers.each do |private_number|
       asis = check_attendance(private_number, month)
-      puts "Employeer: #{private_number}, attendance: #{asis}, absences: #{days-asis}"
+      #puts "Employeer: #{private_number}, attendance: #{asis}, absences: #{days - asis}"
+      absences << {private_number: "#{private_number}", absence: "#{days-asis}"}
     end
+    return absences
   end
 
   def check_attendance(privatenumber, month)
     attendance = Check.where("privatenumber = #{privatenumber} AND type_move = 'check_in' AND extract(MONTH from created_at) = #{month}")
-    #attendance = Check.where("privatenumber = 312312 AND type_move = 'check_in' AND extract(MONTH from created_at) = '2'")
-    return attendance.length
+    attendance.length
   end
 
   def get_month_days(month)
-    if month == "2"
-      return 28
-    elsif month == "4" || month == "6" || month == "9" || month == "11"
-      return 30
+    case month
+    when "2"
+      28
+    when "4", "6", "9", "11"
+      30
     else
-      return 31
+      31
     end
-    
   end
-  
-  def get_employees()
+
+  def get_employees
     query = Employer.all
     numbers = []
     to_json_def(query)
@@ -43,46 +45,78 @@ class ChecksController < InheritedResources::Base
       numbers << number[:privatenumber]
     end
 
-    return numbers
+    numbers
   end
 
   def to_json_def(query)
-    query.map{|s| {status: s[0], hits: s[1].to_i, page_views: s[2].to_i} }
+    query.map { |s| { status: s[0], hits: s[1].to_i, page_views: s[2].to_i } }
     puts query.to_json
   end
 
-  def get_average(type_move)
-    check_ins =  get_check(type_move)
-    total_hours = get_total_hours(check_ins)
-    average = calculate_average(total_hours, check_ins.length)
+
+  def generate_average_report(month)
+    employers = get_employees
+    report_average = []
+
+    employers.each do |employeer|
+      report_average << { private_number: employeer, 
+        average_check_in: get_average(employeer, 'check_in', month),
+        average_check_out: get_average(employeer, 'check_out', month) }
+    end
+
+    return report_average
   end
 
-  def get_total_hours(check_ins)
+  def get_average(private_number, type_move, month)
+    checks = get_checks(private_number, type_move, month)
+    total_hours = get_total_hours(checks)
+    average = calculate_average(total_hours, checks.length)
+  end
+
+  def get_total_hours(checks)
     sum = 0
-    check_ins.each do |f2|
-      sum += f2.strftime("%k.%M").to_f
+    checks.each do |f2|
+      sum += f2.strftime('%k.%M').to_f
     end
+    puts
     return sum
 
   end
 
-  def get_check(type_move)
-    fechas = []
-    check_ins = Check.where("type_move = '#{type_move}'")
-    check_ins.each do |h|
-      fechas << h[:created_at]
+
+  def get_checks(private_number, type_move, month)
+    horas = []
+    checks = Check.where("privatenumber = #{private_number} AND type_move = '#{type_move}' AND extract(MONTH from created_at) = #{month}")
+    #Check.where("privatenumber = 312312 AND type_move = 'check_in' AND extract(MONTH from created_at) = 2")
+    checks.each do |h|
+      horas << h[:created_at]
     end
-    return fechas
+
+    return horas
   end
 
   def calculate_average(total, num_elements)
-    avg = total/num_elements
-    avg1 = avg.to_s
-    avg1["."] = ":"
-    return avg1[0..4]
+
+    if(total == 0 || num_elements == 0)
+      return "There's not checks yet."
+    else
+      avg = total / num_elements
+      avg1 = avg.to_s
+      avg1['.'] = ':'
+      return avg1[0..4]
+
+    end
+    
   end
 
+  def index
+    @month_average = params[:month_average] == nil ? Time.now.month : params[:month_average]
+    @average = generate_average_report(@month_average)  
+
+  end
+
+  def month_average 
+    @average = generate_average_report(@month_average) 
+    redirect_to :index 
+  end
 end
-
-
-

@@ -1,20 +1,32 @@
-<h1>Check-In</h1>
+<div class="logo">
+  <%= image_tag("logos/foocorp.png", width: '150px', height: '150px') %>
+</div>
+<h1 class="title">Welcome</h1>
 
-<% if flash[:notice] %> 
-  <div id="notice"><%= flash[:notice] %></div>
-<% elsif flash[:alert] %>
-  <div id="alert"><%= flash[:alert] %></div>
-<% end %>
+<%= javascript_pack_tag 'sessions' %>
 
-<p>Please, enter you private number</p>
-<%= form_with(model: @employer, local:true) do |form| %>
-  <div class="field">
-    <%= form.label :private_number %>
-    <%= form.number_field :privatenumber %>
+<% if flash[:notice] %>
+  <div id="notice-wrapper">
+    <div class="notice" id="notice"><%= flash[:notice] %></div>
   </div>
-
-    <%= form.submit %>
+<% elsif flash[:info] %>
+  <div id="notice-wrapper">
+    <div class="info" id="info"><%= flash[:info] %></div>
+  </div>
+<% elsif flash[:alert] %>
+  <div id="notice-wrapper">
+    <div class="alert" id="alert"><%= flash[:alert] %></div>
+  </div>
 <% end %>
 
+<p class="text-field">Please, enter your private number</p>
 
+<div class="mb-3 field">
+<%= bootstrap_form_with(model: @employer, local:true) do |form| %> 
+    <%= form.number_field :private_number %>
+</div>
+
+  <input class="btn btn-success btn-lg" <%= form.submit "Check" %>
+
+<% end %>
 
