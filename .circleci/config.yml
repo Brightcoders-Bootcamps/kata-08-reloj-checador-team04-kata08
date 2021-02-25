@@ -48,6 +48,9 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
+      - run: 
+          name: bundler
+          command: bundle install
       - run:
           name: db create
           command: bundle exec rake db:create
