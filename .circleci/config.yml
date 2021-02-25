@@ -35,13 +35,12 @@ jobs:
           POSTGRES_USER: circleci-demo-ruby
           POSTGRES_DB: reloj_checador_test
           POSTGRES_PASSWORD: badbunnies
-
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
-      PGHOST: 127.0.0.1
-      PGUSER: circleci-demo-ruby
-      PGPASSWORD: badbunnies 
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_USER: circleci-demo-ruby
+      POSTGRES_PASSWORD: badbunnies 
       RAILS_ENV: test
     steps:
       - checkout
