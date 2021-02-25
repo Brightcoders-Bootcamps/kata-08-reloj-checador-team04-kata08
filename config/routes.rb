@@ -7,10 +7,10 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  #root 'sessions#table'
+  root 'sessions#login'
 
   get 'sessions/login'
-  post 'sessions/login' => 'sessions#create'
+  post '/' => 'sessions#create'
 
   get 'sessions/show'
 
