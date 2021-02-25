@@ -1,1 +1,3 @@
-json.partial! "employers/employer", employer: @employer
+# frozen_string_literal: true
+
+json.partial! 'employers/employer', employer: @employer

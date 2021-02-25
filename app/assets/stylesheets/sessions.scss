@@ -1,3 +1,197 @@
 // Place all the styles related to the Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
+
+$font: 'RocknRoll One', sans-serif;
+
+$color-back: #f1faee;
+$white-color: #ffffff;
+$notice-back: rgba(50, 148, 79, 0.70);
+$alert-back: rgba(212, 18, 18, 0.85);
+$alo: rgba(245, 76, 76, 0.85);
+$border-color: #2c3e50;
+
+body{background: $color-back}
+
+.logo {
+    margin-left: 550px;
+    margin-top: 110px
+}
+
+.title {
+    margin-left: 540px;
+    margin-top: 30px;
+}
+
+.field {
+    margin-left: 500px;
+    width: 20%;
+    margin-top: 3%;
+}
+
+.text-field {
+    margin-left: 500px;
+    margin-top: 5%;
+}
+
+.btn {
+    margin-left: 500px;
+    width: 10%;
+}
+
+#notice-wrapper {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    .notice {
+        padding: 2.5rem 0;
+        text-align: center;
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $white-color;
+        letter-spacing: 1px;
+        background: $notice-back;
+    }
+    .alert {
+        padding: 2.5rem 0;
+        text-align: center;
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $white-color;
+        letter-spacing: 1px;
+        background: $alert-back;
+    }
+    .info {
+        padding: 2.5rem 0;
+        text-align: center;
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $white-color;
+        letter-spacing: 1px;
+        background: #277da1;
+    }
+}
+
+.background-absence{
+    background: $white-color;
+}
+
+.wrapper {
+    margin: 0 auto;
+    padding: 40px;
+    max-width: 1200px;
+}
+
+.table {
+    margin: 0 0 40px 0;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    display: table;
+    border: 1px solid $border-color;
+}
+
+.header {
+    background: $alert-back;
+
+    &.header {
+        font-weight: 900;
+        color: $white-color;
+    }
+}
+
+.cell {
+    border: $border-color; 
+    &:nth-child(odd) { // highlight the odd rows with a color
+      background-color: #dce2e2;
+    }  
+  }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 12vh;
+}
+
+.title-absence{
+    margin: 0 0 0.25em;
+    font-family: $font;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0;
+    background: $border-color;
+    background-image: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+.select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background: $border-color;
+    overflow: hidden;
+    border-radius: .25em;
+}
+
+select {
+    flex: 1;
+    padding: 0 .5em;
+    color: #fff;
+    cursor: pointer;  
+}
+
+/* Select arrow */
+.select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #34495e;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+  }
+  /* Transition */
+  .select:hover::after {
+    color: $white-color;
+  }
+
+  /* Button search absences */
+  .btn-1 {
+    margin-top: 20px;
+    width: 100%;
+    background-color: $alert-back;
+    border: 0;
+    padding: 10px 15px;
+    color: $white-color;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 20px;
+    transition-duration: 0.25s;
+
+    &:hover {
+        background-color: $alo;
+    }
+  }
+
