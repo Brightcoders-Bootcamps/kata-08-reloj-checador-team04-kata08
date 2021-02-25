@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7.2
+      - image: circleci/ruby:2.7.2-node
       - image: circleci/postgres
         environment:
           POSTGRES_USER: root
