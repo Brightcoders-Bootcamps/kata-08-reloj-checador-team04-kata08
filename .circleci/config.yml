@@ -8,9 +8,9 @@ jobs:
     docker:
       - image: circleci/ruby:2.7.2-node
       - image: circleci/postgres
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: badbunnies 
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: badbunnies 
     steps:
       - checkout
       - ruby/install-deps
