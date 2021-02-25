@@ -8,6 +8,11 @@ class SessionsController < ApplicationController
     else
       redirect_to sessions_login_path, :alert => "Employeer not found. Make sure your private number is rigth"
     end
+  end
+
+  def check_in
+    @check = Check.create(privatenumber: @employeer.privatenumber, type_move: "check_in")
+    redirect_to sessions_login_path, :notice => "Check in successfully, welcome to work"
 
   end
 
