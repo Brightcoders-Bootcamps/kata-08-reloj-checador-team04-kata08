@@ -32,7 +32,7 @@ RSpec.describe ChecksController, :type => :controller do
   
   describe "get_total_hours" do
     it 'return the sum of all the hours' do
-      expect(ChecksController.new.get_total_hours(@check_ins)).to eq(85.6)
+      expect(ChecksController.new.get_total_hours(@check_ins)).to eq(9.6)
     end
   end
   
