@@ -36,7 +36,7 @@ class ChecksController < InheritedResources::Base
     end
   end
 
-  def get_employees
+  def get_employeers
     query = Employer.all
     numbers = []
     to_json_def(query)
