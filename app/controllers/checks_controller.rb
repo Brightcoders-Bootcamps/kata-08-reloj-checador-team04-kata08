@@ -10,7 +10,7 @@ class ChecksController < InheritedResources::Base
   def generate_report_by_user(month)
     absences = []
     days = get_month_days(month)
-    employeers = get_employeers
+    employeers = get_employees
 
     employeers.each do |private_number|
       asis = check_attendance(private_number, month)
